@@ -556,7 +556,7 @@ with col_left:
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="📷 Uploaded fundus image", use_container_width=True)
+        st.image(image, caption="📷 Uploaded fundus image", use_column_width="always")
         st.markdown("</div>", unsafe_allow_html=True)  # close med-card
 
         # Image info card
