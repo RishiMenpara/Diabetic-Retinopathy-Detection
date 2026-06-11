@@ -7,17 +7,7 @@ An AI-powered web application for automated **Diabetic Retinopathy (DR) severity
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
 
-## 🌐 Live Demo
-
-> **Try the app instantly — no installation needed!**
->
-> 👉 **[https://huggingface.co/spaces/RishiMenpara/diabetic-retinopathy](https://huggingface.co/spaces/RishiMenpara/diabetic-retinopathy)**
->
-> Upload any retinal fundus image and get an instant DR severity prediction powered by ConvNeXt-Tiny.
-
----
 
 ## 📋 DR Severity Classes (ICDR Scale)
 
