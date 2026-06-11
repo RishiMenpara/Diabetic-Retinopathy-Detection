@@ -391,11 +391,17 @@ URGENCY_DATA = [
 
 STAGE_PILL_LABELS = ["No DR", "Mild", "Moderate", "Severe", "Prolif."]
 
-# Resolve model path — works both locally (streamlit/app.py) and on HF Spaces (/app/app.py)
-_app_dir   = os.path.dirname(os.path.abspath(__file__))
-_model_hf  = os.path.join(_app_dir, "models", "best_convnext_model.pth")   # HF Spaces
-_model_dev = os.path.join(_app_dir, "..", "models", "best_convnext_model.pth")  # local dev
-MODEL_PATH = _model_hf if os.path.exists(_model_hf) else _model_dev
+# Robust model path — checks all possible locations on HF Spaces and local dev
+_cwd     = os.getcwd()
+_app_dir = os.path.dirname(os.path.abspath(__file__))
+_candidates = [
+    os.path.join(_cwd,     "models", "best_convnext_model.pth"),        # HF: /app/models/
+    os.path.join(_app_dir, "models", "best_convnext_model.pth"),        # same dir as app
+    os.path.join(_app_dir, "..", "models", "best_convnext_model.pth"),  # local dev
+    os.path.join(_cwd,     "best_convnext_model.pth"),                   # HF root fallback
+    os.path.join(_app_dir, "best_convnext_model.pth"),                   # app dir fallback
+]
+MODEL_PATH = next((p for p in _candidates if os.path.exists(p)), None)
 IMG_SIZE   = 224
 DEVICE     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -404,6 +410,11 @@ DEVICE     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # ─────────────────────────────────────────────────────────────────────────────
 @st.cache_resource(show_spinner=False)
 def load_model():
+    if MODEL_PATH is None:
+        raise FileNotFoundError(
+            "Model file 'best_convnext_model.pth' not found. "
+            f"Searched in: {_candidates}"
+        )
     model = models.convnext_tiny(weights=None)
     in_features = model.classifier[2].in_features
     model.classifier[2] = nn.Linear(in_features, 5)
