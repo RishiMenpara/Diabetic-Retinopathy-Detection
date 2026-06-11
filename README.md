@@ -1,16 +1,3 @@
----
-title: Diabetic Retinopathy Detector
-emoji: 👁️
-colorFrom: blue
-colorTo: purple
-sdk: streamlit
-sdk_version: "1.32.0"
-app_file: streamlit/app.py
-pinned: false
-license: mit
-short_description: ConvNeXt-Tiny DR severity grading (5 classes)
----
-
 # 👁️ Diabetic Retinopathy Detection System
 
 An AI-powered web application for automated **Diabetic Retinopathy (DR) severity grading** from retinal fundus images using a **ConvNeXt-Tiny** deep learning model trained on the **EyePACS** dataset.
