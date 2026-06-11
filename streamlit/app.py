@@ -556,7 +556,7 @@ with col_left:
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="📷 Uploaded fundus image", width="stretch")
+        st.image(image, caption="📷 Uploaded fundus image", use_container_width=True)
         st.markdown("</div>", unsafe_allow_html=True)  # close med-card
 
         # Image info card
@@ -651,7 +651,7 @@ with col_right:
             # ── Probability chart ──
             st.markdown('<div class="card-label" style="margin-top:16px;">Probability Distribution</div>', unsafe_allow_html=True)
             fig = make_chart(probs, pred_idx)
-            st.plotly_chart(fig, width="stretch", config={"displayModeBar": False})
+            st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
             # ── Clinical details ──
             st.markdown(f"""
