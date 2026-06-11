@@ -391,7 +391,11 @@ URGENCY_DATA = [
 
 STAGE_PILL_LABELS = ["No DR", "Mild", "Moderate", "Severe", "Prolif."]
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "best_convnext_model.pth")
+# Resolve model path — works both locally (streamlit/app.py) and on HF Spaces (/app/app.py)
+_app_dir   = os.path.dirname(os.path.abspath(__file__))
+_model_hf  = os.path.join(_app_dir, "models", "best_convnext_model.pth")   # HF Spaces
+_model_dev = os.path.join(_app_dir, "..", "models", "best_convnext_model.pth")  # local dev
+MODEL_PATH = _model_hf if os.path.exists(_model_hf) else _model_dev
 IMG_SIZE   = 224
 DEVICE     = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
